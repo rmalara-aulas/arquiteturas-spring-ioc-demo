@@ -9,11 +9,8 @@ import javax.swing.*;
 @Component
 public class ClienteUI {
 
-    ClienteDAO clienteDAO;
-
-    public ClienteUI(ClienteDAO clienteDAO) {
-        this.clienteDAO = clienteDAO;
-    }
+    @Autowired
+    ClienteService clienteService;
 
     public void cadastraCliente() {
         String id = JOptionPane.showInputDialog("Digite o id");
@@ -21,12 +18,12 @@ public class ClienteUI {
         Cliente cli = new Cliente();
         cli.setId(Integer.parseInt(id));
         cli.setNome(nome);
-        clienteDAO.salvaCliente(cli);
+        clienteService.insereCliente(cli);
     }
 
     public void pesquisaCliente() {
         String id = JOptionPane.showInputDialog("Digite o id para pesquisa");
-        Cliente cli = clienteDAO.busca(Integer.parseInt(id));
+        Cliente cli = clienteService.busca(Integer.parseInt(id));
         if (cli != null) {
             JOptionPane.showMessageDialog(null,
                     "Encontrado " + cli.getNome());
